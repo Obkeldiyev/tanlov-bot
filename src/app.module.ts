@@ -21,9 +21,42 @@ import { EventsModule } from './events/events.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { AuditLogsModule } from './audit_logs/audit_logs.module';
 import { AdminsModule } from './admins/admins.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [UsersModule, StudentProfilesModule, FacultiesModule, ProgramsModule, CareerModule, CareerProgramsModule, QuizQuestionsModule, QuizOptionsModule, QuizSessionsModule, QuizAnswersModule, ResultsModule, MentorsModule, BadgesModule, UserBadgesModule, LeaderboardScoresModule, MediaModule, EventsModule, CertificatesModule, AuditLogsModule, AdminsModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST as string,
+      port: process.env.DB_PORT as unknown as number,
+      username: process.env.DB_USERNAME as string,
+      password: process.env.DB_PASSWORD as string,
+      database: process.env.DB_DATABASE as string,
+      entities: [],
+      synchronize: true,
+      logging: true,
+    }),
+    UsersModule,
+    StudentProfilesModule,
+    FacultiesModule,
+    ProgramsModule,
+    CareerModule,
+    CareerProgramsModule,
+    QuizQuestionsModule,
+    QuizOptionsModule,
+    QuizSessionsModule,
+    QuizAnswersModule,
+    ResultsModule,
+    MentorsModule,
+    BadgesModule,
+    UserBadgesModule,
+    LeaderboardScoresModule,
+    MediaModule,
+    EventsModule,
+    CertificatesModule,
+    AuditLogsModule,
+    AdminsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
